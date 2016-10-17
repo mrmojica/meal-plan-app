@@ -7,8 +7,8 @@ var MealSchema = new mongoose.Schema({
     lunch: { type: String, required: true },
     dinner: { type: String, required: true },
     sideDish: { type: String, required: true },
-    snack: { type: String, required: true }.
-    dessert: { type: String, required: true }.
+    snack: { type: String, required: true },
+    dessert: { type: String, required: true },
     calroies: { type: String, required: true }
 });
 

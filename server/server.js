@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var config = require('../config');
-// var Word = require('../models/wordSchema');
+var Meal = require('../model/mealSchema');
 // var User = require('../models/userSchema');
 
 
@@ -59,28 +59,28 @@ app.get('/public', function(req, res) {
   // });
 
 
-// var runServer = function(callback) {
-//     mongoose.connect(config.DATABASE_URL, function(err) {
-//         if (err && callback) {
-//             return callback(err);
-//         }
+var runServer = function(callback) {
+    mongoose.connect(config.DATABASE_URL, function(err) {
+        if (err && callback) {
+            return callback(err);
+        }
 
-//         app.listen(config.PORT, function() {
-//             console.log('Listening on localhost:' + config.PORT);
-//             if (callback) {
-//                 callback();
-//             }
-//         });
-//     });
-// };
-// mongoose.Promise = global.Promise;
-// if (require.main === module) {
-//     runServer(function(err) {
-//         if (err) {
-//             console.error(err);
-//         }
-//     });
-// };
+        app.listen(config.PORT, function() {
+            console.log('Listening on localhost:' + config.PORT);
+            if (callback) {
+                callback();
+            }
+        });
+    });
+};
+mongoose.Promise = global.Promise;
+if (require.main === module) {
+    runServer(function(err) {
+        if (err) {
+            console.error(err);
+        }
+    });
+};
 
 
 // db.collection.insert()
@@ -132,9 +132,9 @@ app.post('/api/mealplan' , jsonParser, function(req, res) {
 
 
 exports.app = app;
-// exports.runServer = runServer;
+exports.runServer = runServer;
 
 
-app.listen(8080, function () {
-  console.log('Listening at 8080!');
-});
+// app.listen(8080, function () {
+//   console.log('Listening at 8080!');
+// });
