@@ -1,18 +1,19 @@
 var actions = require('../actions/actions');
+var initialState = require('./initialState');
 
 // var qCounter = 0;
 
-var initialState = {
-	id: 999,
-	day: '',
-	breakfast: '',
-	lunch: '',
-	dinner: '',
-	sideDish: '',
-	snack: '',
-	dessert: '',
-	calories: ''
-}
+// var initialState = {
+// 	id: 999,
+// 	day: '',
+// 	breakfast: '',
+// 	lunch: '',
+// 	dinner: '',
+// 	sideDish: '',
+// 	snack: '',
+// 	dessert: '',
+// 	calories: ''
+// }
 
 
 var reducer = function(state, action) {
@@ -21,7 +22,7 @@ var reducer = function(state, action) {
 
 	if(action.type === actions.FETCH_DATA_SUCCESS) {
 		console.log('success worked!', action);
-
+			
 		return state;
 
 
