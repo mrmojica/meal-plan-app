@@ -4,10 +4,10 @@ var connect = require('react-redux').connect;
 var Input = require('./UserInput');
 
 
-var Weeklist = React.createClass({
+var WeekList = React.createClass({
 
 
-	rendor: function() {
+	render: function() {
 	return (
 		<div>
 			<div>
@@ -38,4 +38,4 @@ var mapStateToProps = function(state, props) {
 
 var Container = connect(mapStateToProps)(WeekList);
 
-module.exports = Weeklist;
+module.exports = WeekList;
