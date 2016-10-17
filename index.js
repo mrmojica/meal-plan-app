@@ -1,12 +1,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Main = require('./src/client/components/Main');
 
-var HelloWorld = function() {
+var App = function() {
     return (
-        <div>Hello World</div>
+        <div>
+        	<Main />
+        </div>
     );
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    ReactDOM.render(<HelloWorld />, document.getElementById('app'));
+    ReactDOM.render(<App />, document.getElementById('app'));
 });
