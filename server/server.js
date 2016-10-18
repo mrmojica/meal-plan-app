@@ -2,9 +2,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+var plan = require('./plan');
 var config = require('../config');
 var Meal = require('../model/mealSchema');
-// var User = require('../models/userSchema');
 
 
 
@@ -24,39 +24,49 @@ app.get('/public', function(req, res) {
 
 });
 
+//this code inserts the plan data to the mongodb (comment out so it wont duplicate the plan data)
+// Meal.collection.insert(plan, function(error) {
 
-//Update
-// app.put('/user/:id', jsonParser, function(req, res) {
-
-//     // return the index of the object
-//     var id = req.params.id;
-// 		var newHistory = req.body.quizHistory;
-// 		var newSession = spacedAlgo(newHistory);
-//     User.findOneAndUpdate(
-//     	{_id: id },
-//     	{quizHistory: newHistory,
-// 			quizSession: newSession},
-//     	function(err, doc){
-//     		if(err) {
-//     			console.log('Could not update data!');
-//     		}
-//     		console.log(doc);
-
-//     });
-
-
-
-//     if (!req.params.id) {
-//         return res.sendStatus(404);
-//     }
-
-//     res.status(200).json("Success");
-//     // console.log(storage.items);
+//  if (error || null) {
+//  //     return res.status(500).json({
+//  //       message:'Internal Server Error'
+//   return 'Internal Error';
+//  //     });
+//    }
 
 // });
 
-  //   res.json(req.user);
-  // });
+
+// Update
+app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
+
+    // return the index of the object
+    var id = req.params.id;
+		var newHistory = req.body.breakfast;
+    console.log('newHistory', newHistory);
+    Meal.findOneAndUpdate(
+    	{id: id },
+    	{breakfast: newHistory},
+			// quizSession: newSession},
+    	function(err, doc){
+    		if(err) {
+    			console.log('Could not update data!');
+    		}
+    		console.log(doc);
+
+    });
+
+
+
+    if (!req.params.id) {
+        return res.sendStatus(404);
+    }
+
+    res.status(200).json("Success");
+    // console.log(storage.items);
+
+});
+
 
 
 var runServer = function(callback) {
@@ -105,15 +115,15 @@ if (require.main === module) {
 
 
 
-app.get('/api/mealplan' , function(req, res) {
-	// Word.find(function(err, words){
-	// 	if (err) {
-	// 		return res.status(500).json({
-	// 			message:'Internal Server Error'
-	// 		});
-	// 	}
-	// 	res.json(words);
-	// });
+app.get('/api/mealPlan' , function(req, res) {
+	Meal.find(function(err, plan){
+		if (err) {
+			return res.status(500).json({
+				message:'Internal Server Error'
+			});
+		}
+		res.json(plan);
+	});
 });
 
 app.post('/api/mealplan' , jsonParser, function(req, res) {

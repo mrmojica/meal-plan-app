@@ -18,8 +18,8 @@ var WeekList = React.createClass({
 
 	renderData: function() {
 		return this.props.weekday.map(function(data, index) {
-			console.log('map function data', data);
-			return <MealDetail />
+			// console.log('map function data', data);
+			return <MealDetail key={index} data={data}/>
 		});
 	},
 

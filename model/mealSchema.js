@@ -10,7 +10,7 @@ var MealSchema = new mongoose.Schema({
     snack: { type: String, required: true },
     dessert: { type: String, required: true },
     calroies: { type: String, required: true }
-});
+}, { collection : 'Meal' });
 
 var Meal = mongoose.model('Meal', MealSchema);
 

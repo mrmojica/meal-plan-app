@@ -4,7 +4,7 @@ var actions = require('../actions/actions');
 // var qCounter = 0;
 
 var initialState = {
-	id: 999,
+	id: 0,
 	day: '',
 	breakfast: 'test',
 	lunch: 'test1',
@@ -12,7 +12,8 @@ var initialState = {
 	sideDish: '',
 	snack: '',
 	dessert: '',
-	calories: ''
+	calories: '',
+	weekday: []
 }
 
 
@@ -22,13 +23,28 @@ var reducer = function(state, action) {
 
 	if(action.type === actions.FETCH_DATA_SUCCESS) {
 		console.log('success worked!', action);
-
+		state = Object.assign({}, state, {
+			weekday: action.data
+		});
+		console.log('newState', state);
 		return state;
 
 
 	}
 
 	else if (action.type === actions.FETCH_DATA_ERROR) {
+		console.log(action.error, 'error');
+		return action.error;
+	}
+
+	else if (action.type === actions.FETCH_UPDATE_SUCCESS) {
+		console.log('update success worked!', action);
+		return state;
+
+
+	}
+
+	else if (action.type === actions.FETCH_UPDATE_ERROR) {
 		console.log(action.error, 'error');
 		return action.error;
 	}
