@@ -7,7 +7,7 @@ var config = require('../config');
 var Meal = require('../model/mealSchema');
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var User = require('../models/userSchema');
+var User = require('../model/userSchema');
 var passport = require('passport');
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
@@ -153,45 +153,6 @@ app.get('/user',
     res.json(words);
   });
 });
-
-
-function spacedAlgo(history){
-
-  var newSess = [];
-  for (var i = 0; i < history.length; i ++){
-
-    if (history[i].wrongAmt >= 3) {
-      newSess.push(history[i].id);
-      newSess.push(history[i].id);
-      newSess.push(history[i].id);
-
-     }
-    else if (history[i].wrongAmt > 0){
-      newSess.push(history[i].id);
-      newSess.push(history[i].id);
-    }
-    
-    else {
-      newSess.push(history[i].id);
-    }
-  }
-
-  function shuffle(array) {
-  var m = array.length, t, i;
-  // While there remain elements to shuffle
-  while (m) {
-    // Pick a remaining element
-    i = Math.floor(Math.random() * m--);
-    // And swap it with the current element
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-    }
-    return array;
-  }
-  shuffle(newSess);
-  return newSess;
-}
 
 
 

@@ -10,11 +10,12 @@ var IndexRoute = router.IndexRoute;
 var hashHistory = router.hashHistory;
 var Link = router.Link;
 
+var Login = require('./src/client/components/Login');
 var Main = require('./src/client/components/Main');
 
 
 
-var App = function() {
+var App = function(props) {
     return (
         <div>
         	{props.children}
@@ -27,7 +28,7 @@ var routes = (
 	<Provider store={store}>
     <Router history={hashHistory}>
     	<Route path="/" component={App}>
-	        <IndexRoute component={Landing} />
+	        <IndexRoute component={Login} />
           <Route path="/mealPlan" component={Main} />
       </Route>
     </Router>
@@ -37,8 +38,6 @@ var routes = (
 
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
-    	<Provider store={store}>
-    	<App />
-    	</Provider>, 
+    	routes, 
     	document.getElementById('app'));
 });
