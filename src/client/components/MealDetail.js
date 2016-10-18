@@ -34,8 +34,9 @@ var MealDetail = React.createClass({
     // console.log('snack', snack);
     // console.log('dessert', dessert);
     // console.log('calories', calories);
+    // console.log('userId', this.props.userId);
 
-    this.props.dispatch(actions.updateData(this.props.data.id, this.props.data.day, breakfast, lunch, dinner, sideDish, snack, dessert, calories));
+    this.props.dispatch(actions.updateData(this.props.userId, this.props.data.id, this.props.data.day, breakfast, lunch, dinner, sideDish, snack, dessert, calories));
   	this.props.dispatch(actions.fetchMeals());
   },
 
@@ -69,7 +70,8 @@ var MealDetail = React.createClass({
 
 var mapStateToProps = function(state, props) {
     return {
-
+    	userId: state.userId,
+    	weekday: state.weekday
     };
 };
 

@@ -39,7 +39,7 @@ var UserSchema = new mongoose.Schema({
 	displayName: { type: String, required: true },
 	name: { type: String, required: true },
 	plan: {type: Array, default: Plan}
-});
+}, { collection : 'User' });
 
 var User = mongoose.model('User', UserSchema);
 

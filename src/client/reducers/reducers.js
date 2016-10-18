@@ -4,6 +4,7 @@ var actions = require('../actions/actions');
 // var qCounter = 0;
 
 var initialState = {
+	userId: "null",
 	id: 0,
 	day: '',
 	breakfast: '',
@@ -13,6 +14,7 @@ var initialState = {
 	snack: '',
 	dessert: '',
 	calories: '',
+	userData:[],
 	weekday: []
 }
 
@@ -22,9 +24,9 @@ var reducer = function(state, action) {
 	state = state || initialState;
 
 	if(action.type === actions.FETCH_DATA_SUCCESS) {
-		// console.log('success worked!', action);
+		console.log('fetch_data!', action.data[0].plan);
 		state = Object.assign({}, state, {
-			weekday: action.data
+			weekday: action.data[0].plan
 		});
 		// console.log('newState', state);
 		return state;
@@ -48,6 +50,18 @@ var reducer = function(state, action) {
 		console.log(action.error, 'error');
 		return action.error;
 	}
+
+	else if (action.type === actions.FETCH_USER_SUCCESS) {
+			console.log("user ", action.user);
+			state = Object.assign({}, state, {
+			userData: action.user[0].plan,
+			userId: action.user[0].googleId
+		});
+			return state;
+		}
+		else if (action.type === actions.FETCH_USER_ERROR) {
+			console.log(action.error);
+		}
 	
 
 

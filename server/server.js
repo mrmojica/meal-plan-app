@@ -139,18 +139,18 @@ passport.use(new BearerStrategy(
 
 
 
-
+//need?
 app.get('/user',
   passport.authenticate('bearer', { session: false }),
   function(req, res) {
-      User.find(function(err, words){
+      User.find(function(err, meal){
     if (err) {
       return res.status(500).json({
         message:'Internal Server Error'
       });
 
     }
-    res.json(words);
+    res.json(meal);
   });
 });
 
@@ -170,7 +170,7 @@ app.get('/user',
 
 
 //this code inserts the plan data to the mongodb (comment out so it wont duplicate the plan data)
-// Meal.collection.insert(plan, function(error) {
+// User.collection.insert(plan, function(error) {
 
 //  if (error || null) {
 //  //     return res.status(500).json({
@@ -186,18 +186,23 @@ app.get('/user',
 app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
 
     // return the index of the object
+
     var id = req.params.id;
+      console.log('id params', id);
 		var newHistory = req.body.mealHistory;
     console.log('newHistory', newHistory);
-    Meal.findOneAndUpdate(
-    	{id: id },
-    	{breakfast: newHistory[2],
-      lunch: newHistory[3],
-      dinner: newHistory[4],
-      sideDish: newHistory[5],
-      snack: newHistory[6],
-      dessert: newHistory[7],
-      calories: newHistory[8]
+    User.update(
+    	{"googleId": id,
+        "plan.id": newHistory[1]},
+    	{
+        "$set":
+        {"plan.$.breakfast": newHistory[3],
+      "plan.$.lunch": newHistory[4],
+      "plan.$.dinner": newHistory[5],
+      "plan.$.sideDish": newHistory[6],
+      "plan.$.snack": newHistory[7],
+      "plan.$.dessert": newHistory[8],
+      "plan.$.calories": newHistory[9]}
     },  
 			// quizSession: newSession},
     	function(err, doc){
@@ -268,7 +273,7 @@ if (require.main === module) {
 
 
 app.get('/api/mealPlan' , function(req, res) {
-	Meal.find(function(err, plan){
+	User.find(function(err, plan){
 		if (err) {
 			return res.status(500).json({
 				message:'Internal Server Error'

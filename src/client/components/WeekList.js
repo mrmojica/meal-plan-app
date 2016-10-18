@@ -12,11 +12,14 @@ var WeekList = React.createClass({
 
 
 	componentWillMount: function() {
+		this.props.dispatch(actions.fetchUser());
 		this.props.dispatch(actions.fetchMeals());
 
 	},
 
 	renderData: function() {
+		console.log('userData', this.props.userData);
+		console.log('weekday', this.props.weekday);
 		return this.props.weekday.map(function(data, index) {
 			// console.log('map function data', data);
 			return <MealDetail key={index} data={data}/>
@@ -47,6 +50,7 @@ var mapStateToProps = function(state, props) {
 	snack: state.snack,
 	dessert: state.dessert,
 	calories: state.calories,
+	userData: state.userData,
 	weekday: state.weekday
     };
 };
