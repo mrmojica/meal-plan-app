@@ -1,9 +1,9 @@
 var initialState = [{
 	id: 0,
 	breakfast: '',
-	lunch: '',
-	dinner: '',
-	sideDish: '',
+	lunch: 'test',
+	dinner: 'test',
+	sideDish: 'test',
 	snack: '',
 	dessert: '',
 	calories: ''
