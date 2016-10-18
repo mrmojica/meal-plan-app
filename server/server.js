@@ -42,11 +42,17 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
 
     // return the index of the object
     var id = req.params.id;
-		var newHistory = req.body.breakfast;
-    console.log('newHistory', newHistory);
+		var newHistory = req.body.mealHistory;
+    console.log('newHistory', newHistory[2]);
     Meal.findOneAndUpdate(
     	{id: id },
-    	{breakfast: newHistory},
+    	{breakfast: newHistory[2],
+      lunch: newHistory[3],
+      dinner: newHistory[4],
+      sideDish: newHistory[5],
+      snack: newHistory[6],
+      dessert: newHistory[7],
+      calories: newHistory[8]},  
 			// quizSession: newSession},
     	function(err, doc){
     		if(err) {

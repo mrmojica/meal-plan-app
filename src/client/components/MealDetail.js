@@ -19,9 +19,9 @@ var MealDetail = React.createClass({
 	},
 
   onChange: function() {
-   //  var lunch = this.refs.lunchRef.value;
-   //  this.props.dispatch(actions.updateData(this.props.data.id, this.props.data.day, this.props.data.breakfast, lunch));
-  	// this.props.dispatch(actions.fetchMeals());
+    var lunch = this.refs.lunchRef.value;
+    this.props.dispatch(actions.updateData(this.props.data.id, this.props.data.day, this.props.data.breakfast, lunch));
+  	this.props.dispatch(actions.fetchMeals());
   },
 
 	render: function() {
