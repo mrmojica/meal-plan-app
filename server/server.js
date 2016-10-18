@@ -43,7 +43,7 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
     // return the index of the object
     var id = req.params.id;
 		var newHistory = req.body.mealHistory;
-    console.log('newHistory', newHistory[2]);
+    console.log('newHistory', newHistory);
     Meal.findOneAndUpdate(
     	{id: id },
     	{breakfast: newHistory[2],
@@ -52,13 +52,14 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
       sideDish: newHistory[5],
       snack: newHistory[6],
       dessert: newHistory[7],
-      calories: newHistory[8]},  
+      calories: newHistory[8]
+    },  
 			// quizSession: newSession},
     	function(err, doc){
     		if(err) {
     			console.log('Could not update data!');
     		}
-    		console.log(doc);
+    		// console.log(doc);
 
     });
 
