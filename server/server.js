@@ -188,7 +188,7 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
     // return the index of the object
 
     var id = req.params.id;
-      console.log('id params', id);
+    console.log('id params', id);
 		var newHistory = req.body.mealHistory;
     console.log('newHistory', newHistory);
     User.update(

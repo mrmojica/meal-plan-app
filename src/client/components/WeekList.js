@@ -18,7 +18,7 @@ var WeekList = React.createClass({
 	},
 
 	renderData: function() {
-		console.log('userData', this.props.userData);
+		// console.log('userData', this.props.userData);
 		console.log('weekday', this.props.weekday);
 		return this.props.weekday.map(function(data, index) {
 			// console.log('map function data', data);

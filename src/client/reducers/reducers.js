@@ -14,7 +14,7 @@ var initialState = {
 	snack: '',
 	dessert: '',
 	calories: '',
-	userData:[],
+	// userData:[],
 	weekday: []
 }
 
@@ -54,7 +54,7 @@ var reducer = function(state, action) {
 	else if (action.type === actions.FETCH_USER_SUCCESS) {
 			console.log("user ", action.user);
 			state = Object.assign({}, state, {
-			userData: action.user[0].plan,
+			// userData: action.user[0].plan,
 			userId: action.user[0].googleId
 		});
 			return state;
