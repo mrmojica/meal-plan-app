@@ -2,11 +2,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('../actions/actions');
-var Input = require('./UserInput');
-var MealDetail = require ('./MealDetail');
 
 
-var WeekList = React.createClass({
+
+var MealDetail = React.createClass({
 
 
 
@@ -16,18 +15,22 @@ var WeekList = React.createClass({
 
 	},
 
-	renderData: function() {
-		return this.props.weekday.map(function(data, index) {
-			console.log('map function data', data);
-			return <MealDetail />
-		});
-	},
-
 	render: function() {
 
 	return (
 		<div>
-			{this.renderData()}
+			<div>
+				<h3>{this.props.day}</h3>
+				<ul>
+					<li> Breakfast: {this.props.breakfast} </li>
+					<li> Lunch: {this.props.lunch} </li>
+					<li> Dinner: {this.props.dinner}</li>
+					<li> Side Dish: {this.props.sideDish}</li>
+					<li> Snack: {this.props.snack} </li>
+					<li> Dessert: {this.props.dessert} </li>
+					<li> Total Calories: {this.props.calories} </li>
+				</ul>
+			</div>	
 		</div>
 
 		)
@@ -46,11 +49,10 @@ var mapStateToProps = function(state, props) {
 	sideDish: state.sideDish,
 	snack: state.snack,
 	dessert: state.dessert,
-	calories: state.calories,
-	weekday: state.weekday
+	calories: state.calories
     };
 };
 
-var Container = connect(mapStateToProps)(WeekList);
+var Container = connect(mapStateToProps)(MealDetail);
 
 module.exports = Container;
