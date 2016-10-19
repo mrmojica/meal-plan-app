@@ -1,25 +1,8 @@
-# starter-template
+# Meal Planner
 
-### Clone and NPM Install
-Replace <project name> with whatever want to call your project
-``` bash
-git clone https://github.com/cklanac/starter-template.git <project name>
-cd <project name>
-npm install
-```
+Remaining Tasks:
+Use design branch
+-Design Login and Main/MealList/MealDetail components
+-Create a separate logout component + logout feature in backend
+-Optional Feature - Total record of calories  + weeks calories history component
 
-### Build and Dev
-Build
-``` bash
-npm run build
-```
-
-Watch will watch the directory and rebuild as needed
-``` bash
-npm run watch
-```
-
-Dev will run watch and `lite-server` a development server with browser-sync
-``` bash
-npm run dev
-```
