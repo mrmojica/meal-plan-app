@@ -9,8 +9,6 @@ var MealDetail = require ('./MealDetail');
 var WeekList = React.createClass({
 
 
-
-
 	componentWillMount: function() {
 		this.props.dispatch(actions.fetchUser());
 		this.props.dispatch(actions.fetchMeals());
