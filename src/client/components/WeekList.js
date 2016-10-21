@@ -48,7 +48,6 @@ var WeekList = React.createClass({
 		</thead>
 			 <tbody>
 
-
 									{this.renderData()}
 				</tbody>
 
