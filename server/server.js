@@ -154,6 +154,12 @@ app.get('/user',
   });
 });
 
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+
 
 
 
@@ -203,7 +209,7 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
       "plan.$.snack": newHistory[7],
       "plan.$.dessert": newHistory[8],
       "plan.$.calories": newHistory[9]}
-    },  
+    },
 			// quizSession: newSession},
     	function(err, doc){
     		if(err) {
@@ -288,12 +294,6 @@ app.post('/api/mealplan' , jsonParser, function(req, res) {
 
 
 });
-
-
-
-
-
-
 
 
 

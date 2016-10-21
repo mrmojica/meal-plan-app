@@ -4,6 +4,7 @@ var connect = require('react-redux').connect;
 var actions = require('../actions/actions');
 var Input = require('./UserInput');
 var MealDetail = require ('./MealDetail');
+var Button = require('./Button');
 
 
 var WeekList = React.createClass({
@@ -27,12 +28,36 @@ var WeekList = React.createClass({
 	render: function() {
 
 	return (
-		<div>
-			{this.renderData()}
+		<div id="center">
+		<table>
+		<thead>
+		 <tr>
+				 <th scope="col" rowSpan="2">Day</th>
+				 <th scope="col" colSpan="8">Meals</th>
+		 </tr>
+
+		 <tr>
+				 <th scope="col">Breakfast</th>
+				 <th scope="col">Lunch</th>
+				 <th scope="col">Dinner</th>
+				 <th scope="col">Side Dish</th>
+				 <th scope="col">Snack</th>
+				 <th scope="col">Dessert</th>
+				<th scope="col">Calories</th>
+		 </tr>
+		</thead>
+			 <tbody>
+
+
+									{this.renderData()}
+				</tbody>
+
+	 		</table>
+			<a href="/logout"><Button>Logout</Button></a>
 		</div>
 
 		)
- 
+
 	}
 
 });

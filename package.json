@@ -7,12 +7,15 @@
     "test": "mocha --compilers js:babel-register test/**/*.js*",
     "mkdir": "mkdir -p build",
     "clean": "rm -rf build",
-    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:js",
+    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
     "serve": "lite-server",
-    "watch": "npm run watch:html & npm run watch:js",
+    "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
     "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
     "build:html": "npm run clean:html && cp index.html build/",
     "clean:html": "rm -f build/index.html",
+    "build:css": "npm run clean:css && lessc --source-map 'css/index.less' build/$npm_package_name.$npm_package_version.css",
+    "watch:css": "npm run build:css && chokidar 'css/*.less' -c 'npm run build:css'",
+    "clean:css": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
     "watch:js": "npm run build:js && webpack --watch",
     "build:js": "npm run clean:js && webpack",
     "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
@@ -39,7 +42,8 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "styled-components": "^1.0.8"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
