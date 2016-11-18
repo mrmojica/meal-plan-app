@@ -16,15 +16,12 @@ var WeekList = React.createClass({
 	},
 
 	renderData: function() {
-		console.log('weekday', this.props.weekday);
-		// console.log('calories data', this.props.calories);
 		return this.props.weekday.map(function(data, index) {
 			return <MealDetail key={index} data={data}/>
 		});
 	},
 
 	render: function() {
-
 
 	return (
 		<div id="center">

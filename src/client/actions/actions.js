@@ -74,7 +74,6 @@ var mealPlan = function(day, breakfast, lunch, dinner, sideDish, snack, dessert,
 var fetchMeals = function() {
     return function(dispatch) {
         var url = '/api/mealPlan';
-
         return fetch(url).then(function(response) {
             if (response.status < 200 || response.status >= 300) {
                 var error = new Error(response.statusText);
@@ -85,13 +84,12 @@ var fetchMeals = function() {
         })
 
         .then(function(data) {
-                console.log("MEAL DATA", data);
                 return dispatch(
                     fetchDataSuccess(data)
                 );
             })
             .catch(function(error) {
-
+                console.log('error', error);
                 return dispatch(
                     fetchDataError(error)
                 );
@@ -130,7 +128,7 @@ var updateData = function(googleId, id, day, breakfast, lunch, dinner, sideDish,
                 );
             })
             .catch(function(error) {
-
+                console.log("error", error);
                 return dispatch(
                     fetchUpdateError(error)
                 );
@@ -160,13 +158,12 @@ var fetchUser = function() {
         })
 
         .then(function(data) {
-                console.log("USER DATA", data);
                 return dispatch(
                     fetchUserSuccess(data)
                 );
             })
             .catch(function(error) {
-
+                console.log('error', error);
                 return dispatch(
                     fetchUserError(error)
                 );
