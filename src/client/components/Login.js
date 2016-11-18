@@ -11,7 +11,7 @@ var Landing = function(){
 		<div id="landing">
 			<div id="landing-header"><h1>Personal Meal Planner</h1></div>
 
-		<a href="/auth/google"><Button>Click here to login with Google!</Button></a>
+		<a className='button-link' href="/auth/google"><Button >Click here to login with Google!</Button></a>
 		</div>
 
 		)

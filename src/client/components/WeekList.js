@@ -9,7 +9,6 @@ var Button = require('./Button');
 
 var WeekList = React.createClass({
 
-
 	componentWillMount: function() {
 		this.props.dispatch(actions.fetchUser());
 		this.props.dispatch(actions.fetchMeals());
@@ -17,23 +16,23 @@ var WeekList = React.createClass({
 	},
 
 	renderData: function() {
-		// console.log('userData', this.props.userData);
 		console.log('weekday', this.props.weekday);
+		// console.log('calories data', this.props.calories);
 		return this.props.weekday.map(function(data, index) {
-			// console.log('map function data', data);
 			return <MealDetail key={index} data={data}/>
 		});
 	},
 
 	render: function() {
 
+
 	return (
 		<div id="center">
 		<table>
 		<thead>
 		 <tr>
-				 <th scope="col" rowSpan="2">Day</th>
-				 <th scope="col" colSpan="8">Meals</th>
+				 <th scope="col" rowSpan="2" className='chart-title'>Day</th>
+				 <th scope="col" colSpan="8" className='chart-title'>Meals</th>
 		 </tr>
 
 		 <tr>
@@ -43,7 +42,7 @@ var WeekList = React.createClass({
 				 <th scope="col">Side Dish</th>
 				 <th scope="col">Snack</th>
 				 <th scope="col">Dessert</th>
-				<th scope="col">Calories</th>
+				 <th scope="col">Calories</th>
 		 </tr>
 		</thead>
 			 <tbody>
@@ -52,7 +51,8 @@ var WeekList = React.createClass({
 				</tbody>
 
 	 		</table>
-			<a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:8080/"><Button>Logout</Button></a>
+	 		<h3> Week's Total Calories: {this.props.calories} </h3>
+			<a className='button-link' href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:8080/"><Button>Logout</Button></a>
 		</div>
 
 		)
