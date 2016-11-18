@@ -5,7 +5,12 @@ var mongoose = require('mongoose');
 var plan = require('./plan');
 var config = require('../config');
 var Meal = require('../model/mealSchema');
+var googleConfig = require('./googleConfig');
 
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var User = require('../model/userSchema');
+var passport = require('passport');
+var BearerStrategy = require('passport-http-bearer').Strategy;
 
 
 var jsonParser = bodyParser.json();
@@ -24,8 +29,155 @@ app.get('/public', function(req, res) {
 
 });
 
+
+
+
+//-----------------------Authentication Server-------------------------------------------
+
+
+
+passport.use(new GoogleStrategy({
+    clientID: googleConfig.googleAuth.clientID,
+    clientSecret: googleConfig.googleAuth.clientSecret,
+    callbackURL: googleConfig.googleAuth.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log('ACCESSTOKEN******', accessToken);
+    console.log('PROFILE*********', profile);
+    // console.log('*_*_*_*_*_', user);
+
+   User.findOne({
+            'googleId': profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+            if (!user) {
+                var newUser = {
+            googleId: profile.id,
+            accessToken: accessToken,
+            displayName: profile.displayName,
+            name: profile.name.givenName + " " + profile.name.familyName,
+          // quizHistory: [{
+          //   id: 0,
+          //   wrongAmt: 0
+          // }]
+                };
+
+                User.create(newUser, function(err, user) {
+    if (err || !newUser) {
+        console.error("Could not create user", newUser.name);
+        return done(err, user);
+    }
+    console.log("Created user", newUser.name);
+    return done(err, user);
+});
+                // user.save(function(err) {
+                //     if (err) console.log(err);
+                //     return done(err, user);
+                // });
+            } else {
+                //found user. Return + UPDATEwww
+
+                return done(err, user);
+            }
+  });
+
+// return cb(null, user);
+  }));
+
+  // var user = {
+  //  googleId: profile.id,
+  //  accessToken: accessToken,
+  //  displayName: profile.displayName,
+  //  name: profile.name
+   // };
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.cookie('accessToken', req.user.accessToken, {expires:0});
+    res.redirect('/#/mealPlan');
+  });
+
+// accessToken: ya29.Ci9zA3DQVNgXLBa-z59TOPMH5KohT1LCsARqxQ7Un65KwDL1uEsbVfr4nEUATjOYCA
+
+// passport.use(new BearerStrategy(
+//   function(token, done) {
+//    console.log('token', token);
+//    //we need the token to equal the accessToken
+//    if(token == 'ya29.Ci9zA3DQVNgXLBa-z59TOPMH5KohT1LCsARqxQ7Un65KwDL1uEsbVfr4nEUATjOYCA') {
+//      var user = {user:'bob'};
+//      return done(null, user, {scope: 'read'});
+//    } else {
+//      return done(null, false);
+//    }
+//   }
+// ));
+
+
+passport.use(new BearerStrategy(
+  function(token, done) {
+    console.log('token', token);
+    User.find({ accesToken: token}, function(err, users) {
+      if(err) {
+        return done(err)
+      }
+      if(!users) {
+        console.log('no user found');
+        return done(null, false)
+      }
+      console.log('found user');
+      return done(null, users, {scope: 'read'});
+    });
+}
+));
+
+
+
+//need?
+app.get('/user',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+      User.find(function(err, meal){
+    if (err) {
+      return res.status(500).json({
+        message:'Internal Server Error'
+      });
+
+    }
+    res.json(meal);
+  });
+});
+
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------General Server-------------------------------------------
+
+
 //this code inserts the plan data to the mongodb (comment out so it wont duplicate the plan data)
-// Meal.collection.insert(plan, function(error) {
+// User.collection.insert(plan, function(error) {
 
 //  if (error || null) {
 //  //     return res.status(500).json({
@@ -41,19 +193,24 @@ app.get('/public', function(req, res) {
 app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
 
     // return the index of the object
+
     var id = req.params.id;
+    console.log('id params', id);
 		var newHistory = req.body.mealHistory;
     console.log('newHistory', newHistory);
-    Meal.findOneAndUpdate(
-    	{id: id },
-    	{breakfast: newHistory[2],
-      lunch: newHistory[3],
-      dinner: newHistory[4],
-      sideDish: newHistory[5],
-      snack: newHistory[6],
-      dessert: newHistory[7],
-      calories: newHistory[8]
-    },  
+    User.update(
+    	{"googleId": id,
+        "plan.id": newHistory[1]},
+    	{
+        "$set":
+        {"plan.$.breakfast": newHistory[3],
+      "plan.$.lunch": newHistory[4],
+      "plan.$.dinner": newHistory[5],
+      "plan.$.sideDish": newHistory[6],
+      "plan.$.snack": newHistory[7],
+      "plan.$.dessert": newHistory[8],
+      "plan.$.calories": newHistory[9]}
+    },
 			// quizSession: newSession},
     	function(err, doc){
     		if(err) {
@@ -123,7 +280,7 @@ if (require.main === module) {
 
 
 app.get('/api/mealPlan' , function(req, res) {
-	Meal.find(function(err, plan){
+	User.find(function(err, plan){
 		if (err) {
 			return res.status(500).json({
 				message:'Internal Server Error'
@@ -138,12 +295,6 @@ app.post('/api/mealplan' , jsonParser, function(req, res) {
 
 
 });
-
-
-
-
-
-
 
 
 

@@ -34,8 +34,9 @@ var MealDetail = React.createClass({
     // console.log('snack', snack);
     // console.log('dessert', dessert);
     // console.log('calories', calories);
+    // console.log('userId', this.props.userId);
 
-    this.props.dispatch(actions.updateData(this.props.data.id, this.props.data.day, breakfast, lunch, dinner, sideDish, snack, dessert, calories));
+    this.props.dispatch(actions.updateData(this.props.userId, this.props.data.id, this.props.data.day, breakfast, lunch, dinner, sideDish, snack, dessert, calories));
   	this.props.dispatch(actions.fetchMeals());
   },
 
@@ -44,32 +45,27 @@ var MealDetail = React.createClass({
 // <ContentEditable value={this.props.data.breakfast} disabled={false} onChange={this.handleBlur} />
 
 	return (
-		<div>
-			<div>
-				<h3>{this.props.data.day}</h3>
-				<form>
-				<ul>
-					<li> Breakfast: <input type='text' ref='breakfastRef' onChange={this.onChange} value={this.props.data.breakfast} /> </li>
-					<li> Lunch: <input type='text' ref='lunchRef' onChange={this.onChange} value={this.props.data.lunch} /> </li>
-					<li> Dinner: <input type='text' ref='dinnerRef' onChange={this.onChange} value={this.props.data.dinner} /> </li>
-					<li> Side Dish: <input type='text' ref='sideDishRef' onChange={this.onChange} value={this.props.data.sideDish} /> </li>
-					<li> Snack: <input type='text' ref='snackRef' onChange={this.onChange} value={this.props.data.snack} /> </li>
-					<li> Dessert: <input type='text' ref='dessertRef' onChange={this.onChange} value={this.props.data.dessert} /> </li>
-					<li> Total Calories: <input type='value' ref='caloriesRef' onChange={this.onChange} value={this.props.data.calories} /> </li>
-				</ul>
-				</form>
-			</div>	
-		</div>
+				<tr>
+						<th scope="row">{this.props.data.day}</th>
+						<td> <input type='text' ref='breakfastRef' onChange={this.onChange} value={this.props.data.breakfast} /></td>
+						<td> <input type='text' ref='lunchRef' onChange={this.onChange} value={this.props.data.lunch} /> </td>
+						<td><input type='text' ref='dinnerRef' onChange={this.onChange} value={this.props.data.dinner} /></td>
+						<td><input type='text' ref='sideDishRef' onChange={this.onChange} value={this.props.data.sideDish} /></td>
+						<td><input type='text' ref='snackRef' onChange={this.onChange} value={this.props.data.snack} /></td>
+						<td><input type='text' ref='dessertRef' onChange={this.onChange} value={this.props.data.dessert} /></td>
+						<td><input type='value' ref='caloriesRef' onChange={this.onChange} value={this.props.data.calories} /></td>
+						</tr>
 
 		)
- 
+
 	}
 
 });
 
 var mapStateToProps = function(state, props) {
     return {
-
+    	userId: state.userId,
+    	weekday: state.weekday
     };
 };
 
