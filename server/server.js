@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var plan = require('./plan');
 var config = require('../config');
 var Meal = require('../model/mealSchema');
+var googleConfig = require('./googleConfig');
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var User = require('../model/userSchema');
@@ -36,9 +37,9 @@ app.get('/public', function(req, res) {
 
 
 passport.use(new GoogleStrategy({
-    clientID: '494705858866-nqkdasdjshg31l83id03a0qjako2ljmo.apps.googleusercontent.com',
-    clientSecret: 'n-o-KWZT2NExUghcc6k--mvH',
-    callbackURL: "http://localhost:8080/auth/google/callback"
+    clientID: googleConfig.googleAuth.clientID,
+    clientSecret: googleConfig.googleAuth.clientSecret,
+    callbackURL: googleConfig.googleAuth.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('ACCESSTOKEN******', accessToken);
