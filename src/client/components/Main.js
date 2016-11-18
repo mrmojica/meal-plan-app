@@ -8,6 +8,7 @@ var Main = function(){
 
 	return (
 		<div id="main">
+			<h1>My Meal Plan</h1> 
 			<WeekList />
 		</div>
 
