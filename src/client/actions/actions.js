@@ -10,7 +10,7 @@ var fetchDataSuccess = function(data) {
     };
 };
 
-var FETCH_DATA_ERROR= 'FETCH_DATA_ERROR';
+var FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 var fetchDataError = function(error) {
     return {
         type: FETCH_DATA_ERROR,
@@ -27,7 +27,7 @@ var fetchUpdateSuccess = function(data) {
     };
 };
 
-var FETCH_UPDATE_ERROR= 'FETCH_UPDATE_ERROR';
+var FETCH_UPDATE_ERROR = 'FETCH_UPDATE_ERROR';
 var fetchUpdateError = function(error) {
     return {
         type: FETCH_UPDATE_ERROR,
@@ -45,7 +45,7 @@ var fetchUserSuccess = function(user) {
     };
 };
 
-var FETCH_USER_ERROR= 'FETCH_USER_ERROR';
+var FETCH_USER_ERROR = 'FETCH_USER_ERROR';
 var fetchUserError = function(error) {
     return {
         type: FETCH_USER_ERROR,
@@ -72,108 +72,106 @@ var mealPlan = function(day, breakfast, lunch, dinner, sideDish, snack, dessert,
 
 
 var fetchMeals = function() {
-   return function(dispatch) {
-       var url = 'http://localhost:8080/api/mealPlan';
+    return function(dispatch) {
+        var url = 'http://localhost:8080/api/mealPlan';
 
-       return fetch(url).then(function(response) {
-           if (response.status < 200 || response.status >= 300) {
-               var error = new Error(response.statusText);
-               error.response = response;
-               throw error;
-           }
-           return response.json();
-       })
-
-       .then(function(data) {
-               console.log("MEAL DATA", data);
-           return dispatch(
-               fetchDataSuccess(data)
-           );
-       })
-       .catch(function(error) {
-
-           return dispatch(
-               fetchDataError(error)
-           );
-       });
-   }
-};
-
-//UPDATE DATA ACTION
-var updateData = function(googleId, id, day, breakfast, lunch, dinner, sideDish, snack, dessert, calories) {
-   return function(dispatch) {
-       var url = 'http://localhost:8080/api/mealPlan/' + googleId;
-       return fetch(url,
-       {
-          method: 'put',
-          headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({
-          mealHistory: [googleId, id, day, breakfast, lunch, dinner, sideDish, snack, dessert, calories]
+        return fetch(url).then(function(response) {
+            if (response.status < 200 || response.status >= 300) {
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+            return response.json();
         })
 
+        .then(function(data) {
+                console.log("MEAL DATA", data);
+                return dispatch(
+                    fetchDataSuccess(data)
+                );
+            })
+            .catch(function(error) {
 
-       }
+                return dispatch(
+                    fetchDataError(error)
+                );
+            });
+    }
+};
+
+var updateData = function(googleId, id, day, breakfast, lunch, dinner, sideDish, snack, dessert, calories) {
+    return function(dispatch) {
+        var url = 'http://localhost:8080/api/mealPlan/' + googleId;
+        return fetch(url, {
+                method: 'put',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    mealHistory: [googleId, id, day, breakfast, lunch, dinner, sideDish, snack, dessert, calories]
+                })
+
+
+            }
 
         ).then(function(response) {
-           if (response.status < 200 || response.status >= 300) {
-               var error = new Error(response.statusText);
-               error.response = response;
-               throw error;
-           }
-           return response.json();
-       })
+            if (response.status < 200 || response.status >= 300) {
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+            return response.json();
+        })
 
-       .then(function(data) {
-               console.log("DATA", data);
-           return dispatch(
-               fetchUpdateSuccess(data)
-           );
-       })
-       .catch(function(error) {
+        .then(function(data) {
+                console.log("DATA", data);
+                return dispatch(
+                    fetchUpdateSuccess(data)
+                );
+            })
+            .catch(function(error) {
 
-           return dispatch(
-               fetchUpdateError(error)
-           );
-       });
-   }
+                return dispatch(
+                    fetchUpdateError(error)
+                );
+            });
+    }
 };
 
 
 var fetchUser = function() {
-   return function(dispatch) {
-    var token = Cookies.get('accessToken');
-    // var token = getToken();
-    console.log('token=', token);
-    // const headers = new Headers();
-    // headers.append('Authorization', `Bearer ` + token);
-    var headers = new Headers({
-        Authorization: 'bearer ' + token
-      });
-    console.log('header', headers);
-       var url = 'http://localhost:8080/user';
+    return function(dispatch) {
+        var token = Cookies.get('accessToken');
+        var headers = new Headers({
+            Authorization: 'bearer ' + token
+        });
+        console.log('header', headers);
+        var url = 'http://localhost:8080/user';
 
-       return fetch(url, {headers: headers}).then(function(response) {
-           if (response.status < 200 || response.status >= 300) {
-               var error = new Error(response.statusText);
-               error.response = response;
-               throw error;
-           }
-           return response.json();
-       })
+        return fetch(url, {
+            headers: headers
+        }).then(function(response) {
+            if (response.status < 200 || response.status >= 300) {
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+            return response.json();
+        })
 
-       .then(function(data) {
-               console.log("USER DATA", data);
-           return dispatch(
-               fetchUserSuccess(data)
-           );
-       })
-       .catch(function(error) {
+        .then(function(data) {
+                console.log("USER DATA", data);
+                return dispatch(
+                    fetchUserSuccess(data)
+                );
+            })
+            .catch(function(error) {
 
-           return dispatch(
-               fetchUserError(error)
-           );
-       });
-   }
+                return dispatch(
+                    fetchUserError(error)
+                );
+            });
+    }
 };
 
 
