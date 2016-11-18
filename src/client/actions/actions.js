@@ -73,7 +73,7 @@ var mealPlan = function(day, breakfast, lunch, dinner, sideDish, snack, dessert,
 
 var fetchMeals = function() {
     return function(dispatch) {
-        var url = 'http://localhost:8080/api/mealPlan';
+        var url = '/api/mealPlan';
 
         return fetch(url).then(function(response) {
             if (response.status < 200 || response.status >= 300) {
@@ -101,7 +101,7 @@ var fetchMeals = function() {
 
 var updateData = function(googleId, id, day, breakfast, lunch, dinner, sideDish, snack, dessert, calories) {
     return function(dispatch) {
-        var url = 'http://localhost:8080/api/mealPlan/' + googleId;
+        var url = '/api/mealPlan/' + googleId;
         return fetch(url, {
                 method: 'put',
                 headers: {
@@ -146,7 +146,7 @@ var fetchUser = function() {
             Authorization: 'bearer ' + token
         });
         console.log('header', headers);
-        var url = 'http://localhost:8080/user';
+        var url = '/user';
 
         return fetch(url, {
             headers: headers
