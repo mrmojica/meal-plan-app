@@ -13,7 +13,7 @@ var initialState = {
     sideDish: '',
     snack: '',
     dessert: '',
-    calories: '',
+    calories: 0,
     weekday: []
 }
 
@@ -25,7 +25,11 @@ var reducer = function(state, action) {
     if (action.type === actions.FETCH_DATA_SUCCESS) {
         var totalCalories = 0;
         for (var i = 0; i < action.data[0].plan.length; i++) {
-            totalCalories += parseInt(action.data[0].plan[i].calories)
+            totalCalories += Number(action.data[0].plan[i].calories)
+        }
+        console.log('total calories', totalCalories);
+        if (totalCalories == '') {
+        	totalCalories = 0;
         }
 
         state = Object.assign({}, state, {

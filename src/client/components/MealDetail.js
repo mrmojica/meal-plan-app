@@ -2,16 +2,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('../actions/actions');
-// var PlainEditable = require('react-plain-editable');
-// var InlineEdit = require('react-edit-inline');
-var ContentEditable = require('react-contenteditable');
-
 
 
 var MealDetail = React.createClass({
-
-
-
 
 	componentWillMount: function() {
 		this.props.dispatch(actions.fetchMeals());
@@ -27,22 +20,11 @@ var MealDetail = React.createClass({
     var dessert = this.refs.dessertRef.value;
     var calories = this.refs.caloriesRef.value;
 
-    // console.log('breakfast', breakfast);
-    // console.log('lunch', lunch);
-    // console.log('dinner', dinner);
-    // console.log('sideDish', sideDish);
-    // console.log('snack', snack);
-    // console.log('dessert', dessert);
-    // console.log('calories', calories);
-    // console.log('userId', this.props.userId);
-
     this.props.dispatch(actions.updateData(this.props.userId, this.props.data.id, this.props.data.day, breakfast, lunch, dinner, sideDish, snack, dessert, calories));
   	this.props.dispatch(actions.fetchMeals());
   },
 
 	render: function() {
-//alternate text edit option instead of using input (ref does not work)
-// <ContentEditable value={this.props.data.breakfast} disabled={false} onChange={this.handleBlur} />
 
 	return (
 				<tr>

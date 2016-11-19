@@ -84,6 +84,7 @@ var fetchMeals = function() {
         })
 
         .then(function(data) {
+            console.log('DATA', data);
                 return dispatch(
                     fetchDataSuccess(data)
                 );
@@ -158,6 +159,7 @@ var fetchUser = function() {
         })
 
         .then(function(data) {
+             console.log('DATA', data);
                 return dispatch(
                     fetchUserSuccess(data)
                 );

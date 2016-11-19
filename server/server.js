@@ -159,22 +159,26 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
                 "plan.$.dessert": newHistory[8],
                 "plan.$.calories": newHistory[9]
             }
+        },{
+            new: true
         },
         function(err, doc) {
             if (err) {
                 console.log('Could not update data!');
             }
 
+            console.log('doc', doc);
+              if (!req.params.id) {
+        return res.sendStatus(404);
+    }
+
+    res.status(200).json(newHistory);
 
         });
 
 
 
-    if (!req.params.id) {
-        return res.sendStatus(404);
-    }
-
-    res.status(200).json("Success");
+  
     // console.log(storage.items);
 
 });
