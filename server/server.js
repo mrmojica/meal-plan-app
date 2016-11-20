@@ -146,7 +146,7 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
     console.log('id params', id);
     var newHistory = req.body.mealHistory;
     console.log('newHistory', newHistory);
-    User.update({
+    User.findOneAndUpdate({
             "googleId": id,
             "plan.id": newHistory[1]
         }, {
@@ -162,17 +162,17 @@ app.put('/api/mealPlan/:id', jsonParser, function(req, res) {
         },{
             new: true
         },
-        function(err, doc) {
+        function(err, mealPlan) {
             if (err) {
                 console.log('Could not update data!');
             }
 
-            console.log('doc', doc);
+            console.log('mealPlan', mealPlan.plan);
               if (!req.params.id) {
         return res.sendStatus(404);
     }
 
-    res.status(200).json(newHistory);
+    res.status(200).json(mealPlan.plan);
 
         });
 

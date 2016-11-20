@@ -21,7 +21,7 @@ var MealDetail = React.createClass({
     var calories = this.refs.caloriesRef.value;
 
     this.props.dispatch(actions.updateData(this.props.userId, this.props.data.id, this.props.data.day, breakfast, lunch, dinner, sideDish, snack, dessert, calories));
-  	this.props.dispatch(actions.fetchMeals());
+  	// this.props.dispatch(actions.fetchMeals());
   },
 
 	render: function() {
