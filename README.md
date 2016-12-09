@@ -1,7 +1,7 @@
 # Meal Planner
 A personal meal planner application that allows users to keep track of their daily and weekly calorie intake.
 
-![alt tag](http://files.vividscreen.info/soft/130ec927613cbb5b00c29c6d286e3bc8/Lemon-Juice-1920x1200.jpg)
+![meal-planner](https://cloud.githubusercontent.com/assets/17189463/21058024/ecf1da5a-bdf0-11e6-8b41-8e33f2e5415c.png)
 
 Be sure to run npm run build before npm run watch and node ./server/server + MongoDB
 
